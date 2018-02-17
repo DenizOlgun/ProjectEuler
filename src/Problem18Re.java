@@ -1,3 +1,4 @@
+/*
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -49,6 +50,7 @@ public class Problem18Re {
             else return;
 
             this.upper.value = Math.max(this.upper.lower.get(0).value, this.upper.lower.get(1).value);
+            this.upper.deleteLower();
         }
 
         public Node neighbor() {
@@ -59,6 +61,11 @@ public class Problem18Re {
         public void deleteLower() {
 
             this.lower.clear();
+        }
+
+        public void delete() {
+
+            this.upper.lower.remove(this);
         }
 
         public static class NodeFactory {
@@ -84,3 +91,4 @@ public class Problem18Re {
         }
     }
 }
+*/

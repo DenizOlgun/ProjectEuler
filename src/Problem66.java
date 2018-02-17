@@ -24,30 +24,45 @@ public class Problem66 {
         double sqrt = Math.sqrt(d);
         return sqrt == Math.rint(sqrt);
     }
-    
-    double D = 1;
-    double y = 1;
+
+    static volatile double D = 1;
+    static volatile double y = 1;
+
+    static final ExecutorService executor = Executors.newFixedThreadPool(5); // it's just an arbitrary number
+    static final List<Future<?>> futures = new ArrayList<>();
 
     static ArrayList<Double> results = new ArrayList<>();
     public static void main(String[] args) {
 
-        A: for(double D = 2; D <= 1000 && !isSquare(D); D++) {
+        A: for(D = 2; D <= 1000 && !isSquare(D); D++) {
 
-                double xSquared;
-                for (int y = 1;; y++) {
+                //double xSquared;
+                double temp = D;
+                Future<?> future = executor.submit(() -> {
 
-                    xSquared = (D * y * y) + 1;
-                    if (isSquare(xSquared)) {
+                    for (y = 1;; y++) {
 
-                        double x = Math.sqrt(xSquared);
-                        System.out.println("x: " + x + "\ny: " + y + "\nD: " + D + "\n");
-                        results.add(x);
-                        continue A;
+                        double xSquared;
+                        xSquared = (temp * y * y) + 1;
+                        if (isSquare(xSquared)) {
+
+                            double x = Math.sqrt(xSquared);
+                            System.out.println("x: " + x + "\ny: " + y + "\nD: " + temp + "\n");
+                            return x;
+                        }
                     }
-                }
+                });
         }
 
-        String result = String.format("%.0f", Collections.max(results));
-        System.out.println("The answer: " + result);
+
+            futures.forEach(f -> {
+
+                try{
+                    System.out.println("wat " + f.get());
+                }
+                catch (Exception e) {}
+            });
+//        String result = String.format("%.0f", Collections.max(results));
+       // System.out.println("The answer: " + result);
     }
 }
