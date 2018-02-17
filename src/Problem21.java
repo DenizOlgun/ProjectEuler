@@ -37,7 +37,7 @@ public class Problem21 {
         if(divSum == d) return false;
         else return divisorsSum(divSum) == d;
     }
-    
+
     public static void main(String[] args) {
 
         Stream<Integer> integerStream = Stream.iterate(1, i -> i + 1).limit(10000); //range from 1 to 10000
