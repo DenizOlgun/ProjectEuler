@@ -1,3 +1,7 @@
+package Problems.Completed;
+
+import com.sun.istack.internal.NotNull;
+
 import java.io.File;
 import java.util.*;
 
@@ -22,6 +26,7 @@ public class Problem22 {
             names.sort(Comparator.naturalOrder());
         } catch (Exception e) {
 
+            System.out.println("wat");
             e.printStackTrace();
         } finally {
 
@@ -59,12 +64,12 @@ public class Problem22 {
     public static int score(String subject, int index) {
 
         int result = 0;
-        for(Character c : subject.toCharArray()) result += characterIntegerMap.get(c);
+            for (Character c : subject.toCharArray()) result += characterIntegerMap.get(c);
         return result * index;
     }
 
     public static void main(String[] args) {
-
+        
         ArrayList<Integer> scores = new ArrayList<>();
         names.forEach(e -> scores.add(score(e, names.indexOf(e) + 1)));
 

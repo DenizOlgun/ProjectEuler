@@ -1,3 +1,5 @@
+package Problems.Completed;
+
 import java.math.BigInteger;
 
 public class Problem25 {

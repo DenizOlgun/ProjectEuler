@@ -1,3 +1,4 @@
+package Problems.Completed;
 
 import static java.lang.Math.*;
 
