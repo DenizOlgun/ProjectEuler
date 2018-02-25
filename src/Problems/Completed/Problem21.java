@@ -1,11 +1,13 @@
 package Problems.Completed;
 
+import Problems.ProblemBase;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.LongAdder;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
-public class Problem21 {
+public class Problem21 extends ProblemBase {
 
     public static boolean divides(double d1, double d2) {
 
@@ -13,7 +15,7 @@ public class Problem21 {
         return temp == Math.rint(temp);
     }
 
-    public static HashSet<Integer> divisors(double d) {
+    public static HashSet<Integer> properDivisors(double d) {
 
         HashSet<Integer> temp = new HashSet<>();
         HashSet<Integer> divisors = new HashSet<>();
@@ -22,14 +24,14 @@ public class Problem21 {
         double upper = Math.sqrt(d);
         for(int j = 2; j <= upper; j++) if(divides(d, j)) temp.add(j);
 
-        divisors.addAll(temp); //copying over our main divisors
-        temp.forEach(e -> divisors.add((int) (d/e))); //adding the less dense half of divisors
+        divisors.addAll(temp); //copying over our main properDivisors
+        temp.forEach(e -> divisors.add((int) (d/e))); //adding the less dense half of properDivisors
         return divisors;
     }
 
     public static double divisorsSum(double d) {
 
-        Set<Integer> divisors = divisors(d);
+        Set<Integer> divisors = properDivisors(d);
         return divisors.stream().mapToDouble(Integer::longValue).sum(); //converts Set to Stream to DoubleStream, then calls sum()
     }
 
@@ -42,7 +44,7 @@ public class Problem21 {
 
     public static void main(String[] args) {
 
-        Stream<Integer> integerStream = Stream.iterate(1, i -> i + 1).limit(10000); //range from 1 to 10000
+        IntStream integerStream = IntStream.range(1, 10000); //range from 1 to 10000
         integerStream = integerStream.filter(Problem21::isAmicable);
         //integerStream.forEach(System.out::println);
 

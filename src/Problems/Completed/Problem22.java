@@ -69,7 +69,7 @@ public class Problem22 {
     }
 
     public static void main(String[] args) {
-        
+
         ArrayList<Integer> scores = new ArrayList<>();
         names.forEach(e -> scores.add(score(e, names.indexOf(e) + 1)));
 
