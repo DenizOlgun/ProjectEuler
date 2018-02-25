@@ -11,8 +11,7 @@ public class ProblemBase {
 
     public static boolean divides(double d1, double d2) {
 
-        double temp = d1/d2;
-        return temp == Math.rint(temp);
+        return isWhole(d1/d2);
     }
 
     public static HashSet<Integer> properDivisors(double d) {
@@ -109,5 +108,47 @@ public class ProblemBase {
         int result = 1;
         for(int j = 1; j <= i; j++) result *= j;
         return result;
+    }
+
+    public static boolean isWhole(double d) {
+
+        return Math.rint(d) == d;
+    }
+
+    //TODO: improve complexity using recursion
+    public static boolean isPrime(double d) {
+
+        for(double i = 2; i <= Math.sqrt(d); i++) {
+
+            if(isWhole(d/i)) return false;
+        }
+
+        return true;
+    }
+
+    public static HashSet<Double> primeFactors(double d) {
+
+        return primeFactors(d, new HashSet<>());
+    }
+
+    //TODO: improve complexity?
+    public static HashSet<Double> primeFactors(double d, HashSet<Double> factors) {
+
+        if(isPrime(d)) {
+
+            factors.add(d);
+            return factors;
+        }
+
+        for(double i = 2; i <= Math.sqrt(d); i++) {
+
+            if(isWhole(d/i)) {
+
+                factors.add(i);
+                return primeFactors(d/i, factors);
+            }
+        }
+
+        return null;
     }
 }
