@@ -3,9 +3,7 @@ package Problems.Completed;
 import Problems.ProblemBase;
 
 import java.math.BigInteger;
-import java.util.Comparator;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 /**
  * Created by Pat111 on 2/26/2018.
