@@ -1,6 +1,8 @@
 package Problems;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.stream.IntStream;
 
@@ -140,7 +142,8 @@ public class ProblemBase {
             return factors;
         }
 
-        for(double i = 2; i <= Math.sqrt(d); i++) {
+        double i = !factors.isEmpty() ? Collections.max(factors) : 2;
+        for(; i <= Math.sqrt(d); i++) {
 
             if(isWhole(d/i)) {
 
@@ -150,5 +153,42 @@ public class ProblemBase {
         }
 
         return null;
+    }
+
+    public static ArrayList<Integer> primeFactorsDup(double d) {
+
+        return primeFactorsDup(d, new ArrayList<>());
+    }
+
+    //TODO: improve complexity?
+    public static ArrayList<Integer> primeFactorsDup(double d, ArrayList<Integer> factors) {
+
+        if(isPrime(d)) {
+
+            factors.add((int) d);
+            return factors;
+        }
+
+        for(double i = 2; i <= Math.sqrt(d); i++) {
+
+            if(isWhole(d/i)) {
+
+                factors.add((int) i);
+                return primeFactorsDup(d/i, factors);
+            }
+        }
+
+        return null;
+    }
+
+    //returns the set of prime factors, with duplicity, of a perfect power
+    public static ArrayList<Integer> primeFactorsDup(double base, double exp) {
+
+        ArrayList<Integer> factorization = primeFactorsDup(base);
+        ArrayList<Integer> result = new ArrayList<>();
+
+        //duplicates 'factorization' 'exp' number of times and adds it to 'result', then returns the value
+        IntStream.range(0, (int) exp).forEach(e -> result.addAll(factorization));
+        return result;
     }
 }
