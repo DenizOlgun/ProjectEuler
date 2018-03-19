@@ -4,7 +4,11 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
+import java.util.Iterator;
+import java.util.*;
 
 /**
  * Created by Pat111 on 2/25/2018.
@@ -190,5 +194,24 @@ public class ProblemBase {
         //duplicates 'factorization' 'exp' number of times and adds it to 'result', then returns the value
         IntStream.range(0, (int) exp).forEach(e -> result.addAll(factorization));
         return result;
+    }
+
+    public static boolean isPandigital(int i) {
+
+        //ensures that the largest digit is no longer than the length of the number
+        if(!(toIntStream(i).max().getAsInt() == String.valueOf(i).length())) return false;
+
+        //ensures that none of the digits are 0
+        if(String.valueOf(i).contains("0")) return false;
+
+        //ensures that all digits are distinct
+        return equalStreams(toIntStream(i).boxed(), toIntStream(i).distinct().boxed());
+    }
+
+    public static boolean equalStreams(Stream<?>...streams) {
+        List<Iterator<?>>is = Arrays.stream(streams).map(Stream::iterator).collect(Collectors.toList());
+        while(is.stream().allMatch(Iterator::hasNext))
+            if(is.stream().map(Iterator::next).distinct().limit(2).count()>1) return false;
+        return is.stream().noneMatch(Iterator::hasNext);
     }
 }
