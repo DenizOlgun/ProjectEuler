@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import java.util.Iterator;
 import java.util.*;
@@ -109,6 +110,11 @@ public class ProblemBase {
         return String.valueOf(i).chars().map(e -> e - '0');
     }
 
+    public static LongStream toLongStream(long l) {
+
+        return String.valueOf(l).chars().mapToLong(e -> e - '0');
+    }
+
     public static int factorial(int i) {
 
         int result = 1;
@@ -196,16 +202,16 @@ public class ProblemBase {
         return result;
     }
 
-    public static boolean isPandigital(int i) {
+    public static boolean isPandigital(long l) {
 
         //ensures that the largest digit is no longer than the length of the number
-        if(!(toIntStream(i).max().getAsInt() == String.valueOf(i).length())) return false;
+        if(!(toLongStream(l).max().getAsLong() == String.valueOf(l).length())) return false;
 
         //ensures that none of the digits are 0
-        if(String.valueOf(i).contains("0")) return false;
+        if(String.valueOf(l).contains("0")) return false;
 
         //ensures that all digits are distinct
-        return equalStreams(toIntStream(i).boxed(), toIntStream(i).distinct().boxed());
+        return equalStreams(toLongStream(l).boxed(), toLongStream(l).distinct().boxed());
     }
 
     public static boolean equalStreams(Stream<?>...streams) {
