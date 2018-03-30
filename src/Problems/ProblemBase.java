@@ -165,26 +165,26 @@ public class ProblemBase {
         return null;
     }
 
-    public static ArrayList<Integer> primeFactorsDup(double d) {
+    public static ArrayList<Long> primeFactorsDup(long l) {
 
-        return primeFactorsDup(d, new ArrayList<>());
+        return primeFactorsDup(l, new ArrayList<>());
     }
 
     //TODO: improve complexity?
-    public static ArrayList<Integer> primeFactorsDup(double d, ArrayList<Integer> factors) {
+    public static ArrayList<Long> primeFactorsDup(long l, ArrayList<Long> factors) {
 
-        if(isPrime(d)) {
+        if(isPrime(l)) {
 
-            factors.add((int) d);
+            factors.add(l);
             return factors;
         }
 
-        for(double i = 2; i <= Math.sqrt(d); i++) {
+        for(long j = 2; j <= Math.sqrt(l); j++) {
 
-            if(isWhole(d/i)) {
+            if(isWhole(l/j)) {
 
-                factors.add((int) i);
-                return primeFactorsDup(d/i, factors);
+                factors.add(j);
+                return primeFactorsDup(l/j, factors);
             }
         }
 
@@ -192,10 +192,10 @@ public class ProblemBase {
     }
 
     //returns the set of prime factors, with duplicity, of a perfect power
-    public static ArrayList<Integer> primeFactorsDup(double base, double exp) {
+    public static ArrayList<Long> primeFactorsDup(long base, long exp) {
 
-        ArrayList<Integer> factorization = primeFactorsDup(base);
-        ArrayList<Integer> result = new ArrayList<>();
+        ArrayList<Long> factorization = primeFactorsDup(base);
+        ArrayList<Long> result = new ArrayList<>();
 
         //duplicates 'factorization' 'exp' number of times and adds it to 'result', then returns the value
         IntStream.range(0, (int) exp).forEach(e -> result.addAll(factorization));
